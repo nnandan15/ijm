@@ -42,11 +42,11 @@
                     <div>
                         <label class="form-label">Public Visibility</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="private">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="private">
                             <label class="form-check-label" for="private">Private</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="public">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="public">
                             <label class="form-check-label" for="public">Public</label>
                         </div>
                     </div>
@@ -159,7 +159,7 @@ function submitform() {
 
     var requestOptions = {
         method: 'POST',
-        headers: myHeaders,
+        //headers: myHeaders,
         body: raw,
         redirect: 'manual'
     };
@@ -203,7 +203,7 @@ function submitform() {
 
                     var requestOptions = {
                             method: 'POST',
-                            headers: myHeaders,
+                            //headers: myHeaders,
                             body: raw,
                             redirect: 'manual'
                     };
@@ -223,7 +223,6 @@ function submitform() {
         }
     })
     .catch(error => console.log('error', error)); 
-    return false;
 
 }
     </script>
