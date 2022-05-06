@@ -76,7 +76,7 @@ var raw = JSON.stringify({
     "data": "none"
 });
 
-fetch("https://dgy9ffjm0xcw9.cloudfront.net/category", {
+fetch("https://0173-27-4-43-91.in.ngrok.io/category", {
     method: 'POST',
     body: raw,
 })
@@ -110,7 +110,7 @@ var raw = JSON.stringify({
   "data": val
 });
 
-fetch("https://dgy9ffjm0xcw9.cloudfront.net/category", {
+fetch("https://0173-27-4-43-91.in.ngrok.io/category", {
     method: 'POST',
     body: raw,
 })
@@ -164,7 +164,7 @@ function submitform() {
         redirect: 'manual'
     };
     console.log("hi");
-    fetch("https://dgy9ffjm0xcw9.cloudfront.net/get_file", requestOptions)
+    fetch("https://0173-27-4-43-91.in.ngrok.io/get_file", requestOptions)
     .then(response => response.text())
     .then(function(result){
         window.nandan = JSON.parse(result);
@@ -185,7 +185,7 @@ function submitform() {
                 body: formdata,
                 redirect: 'manual'
             };
-            fetch("https://dgy9ffjm0xcw9.cloudfront.net/admin_upload", requestOptions)
+            fetch("https://0173-27-4-43-91.in.ngrok.io/admin_upload", requestOptions)
             .then(response => response.text())
             .then(
                 function(result){
@@ -208,7 +208,7 @@ function submitform() {
                             redirect: 'manual'
                     };
 
-                    fetch("https://dgy9ffjm0xcw9.cloudfront.net/create_metadata", requestOptions)
+                    fetch("https://0173-27-4-43-91.in.ngrok.io/create_metadata", requestOptions)
                     .then(response => response.text())
                     .then(function(result){
                         var folderRow = document.getElementById('warning');
