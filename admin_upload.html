@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="p-5">
-        <form onsubmit="submitform()">
+        <form action="#" onsubmit="submitform()">
             <div class="admin_user_upload mt-5">
                 <div id="warning" class="row"></div>
                 <div class="row">
@@ -152,18 +152,18 @@ function submitform() {
     console.log(newFilename);    
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
+    
     var raw = JSON.stringify({
-    "trigger_word": "private"
+        "trigger_word": "private"
     });
-
+    
     var requestOptions = {
         method: 'POST',
-        //headers: myHeaders,
+        headers: myHeaders,
         body: raw,
         redirect: 'manual'
     };
-
+    console.log("hi");
     fetch("https://dgy9ffjm0xcw9.cloudfront.net/get_file", requestOptions)
     .then(response => response.text())
     .then(function(result){
@@ -176,14 +176,14 @@ function submitform() {
             folderRow.insertAdjacentHTML('beforeend', '<div class="alert alert-danger" role="alert">Filename already Exists. Choose a different Name</div>');
             console.log('file name exists', error);
         }else{
-            var folderRow = document.getElementById('warning');
-            folderRow.innerHTML="";
+            //var folderRow = document.getElementById('warning');
+            //folderRow.innerHTML="";
             var formdata = new FormData();
             formdata.append("fileobject", myInput.files[0], newFilename);
             var requestOptions = {
-                    method: 'POST',
-                    body: formdata,
-                    redirect: 'manual'
+                method: 'POST',
+                body: formdata,
+                redirect: 'manual'
             };
             fetch("https://dgy9ffjm0xcw9.cloudfront.net/admin_upload", requestOptions)
             .then(response => response.text())
@@ -194,36 +194,34 @@ function submitform() {
                     var myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
                     var raw = JSON.stringify({
-                    "file_name": newFilename,
-                    "isvisible": visibility,
-                    "category": category,
-                    "sub_category": sub_category,
-                    "tags": tags
+                        "file_name": newFilename,
+                        "isvisible": visibility,
+                        "category": category,
+                        "sub_category": sub_category,
+                        "tags": tags
                     });
 
                     var requestOptions = {
                             method: 'POST',
-                            //headers: myHeaders,
+                            headers: myHeaders,
                             body: raw,
                             redirect: 'manual'
                     };
 
                     fetch("https://dgy9ffjm0xcw9.cloudfront.net/create_metadata", requestOptions)
-                            .then(response => response.text())
-                            .then(function(result){
-                                var folderRow = document.getElementById('warning');
-                                folderRow.innerHTML='';
-                                folderRow.insertAdjacentHTML('beforeend', '<div class="alert alert-success" role="alert">File Uploaded Successfully</div>');
-                            })
-                            .catch(error => console.log('error', error));
-                            }
-            }
-            )
+                    .then(response => response.text())
+                    .then(function(result){
+                        var folderRow = document.getElementById('warning');
+                        folderRow.innerHTML='';
+                        folderRow.insertAdjacentHTML('beforeend', '<div class="alert alert-success" role="alert">File Uploaded Successfully</div>');
+                    })
+                    .catch(error => console.log('error', error));
+                }
+            })
             .catch(error => console.log('error', error));
         }
     })
     .catch(error => console.log('error', error)); 
-
 }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
