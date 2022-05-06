@@ -164,7 +164,7 @@ function submitform() {
         redirect: 'manual'
     };
 
-    fetch("https://dgy9ffjm0xcw9.cloudfront.net/get_file", requestOptions)
+    fetch("http://ijm-file-engine.us-east-1.elasticbeanstalk.com/get_file", requestOptions)
     .then(response => response.text())
     .then(function(result){
         window.nandan = JSON.parse(result);
