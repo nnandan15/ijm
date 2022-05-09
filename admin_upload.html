@@ -154,9 +154,7 @@ function submitform() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
-        "file_name": "file1.pdf"
-    });
+    var raw = {"file_name": "file1.pdf"};
 
     var requestOptions = {
             method: 'POST',
