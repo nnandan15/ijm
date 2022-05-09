@@ -13,9 +13,9 @@
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
-            var raw = JSON.stringify({
+            var raw = {
             "file_name": "file1.pdf"
-            });
+            };
 
             var requestOptions = {
                     method: 'POST',
