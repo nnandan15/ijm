@@ -155,15 +155,16 @@ function submitform() {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-        "file_name": newFilename
+        "file_name": "file1.pdf"
     });
 
     var requestOptions = {
-        method: 'POST',
-        //headers: myHeaders,
-        body: JSON.stringify({"file_name": newFilename})
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'manual'
     };
-    console.log("hi");
+
     fetch("https://dgy9ffjm0xcw9.cloudfront.net/file_name_check", requestOptions)
     .then(response => response.text())
     .then(function(result){
