@@ -76,7 +76,7 @@ var raw = JSON.stringify({
     "data": "none"
 });
 
-fetch("https://7e39-27-4-43-91.in.ngrok.io/category", {
+fetch("https://dgy9ffjm0xcw9.cloudfront.net/category", {
     method: 'POST',
     body: raw,
 })
@@ -110,7 +110,7 @@ var raw = JSON.stringify({
   "data": val
 });
 
-fetch("https://7e39-27-4-43-91.in.ngrok.io/category", {
+fetch("https://dgy9ffjm0xcw9.cloudfront.net/category", {
     method: 'POST',
     body: raw,
 })
@@ -164,7 +164,7 @@ function submitform() {
         body: JSON.stringify({"file_name": newFilename})
     };
     console.log("hi");
-    fetch("https://7e39-27-4-43-91.in.ngrok.io/file_name_check", requestOptions)
+    fetch("https://dgy9ffjm0xcw9.cloudfront.net/file_name_check", requestOptions)
     .then(response => response.text())
     .then(function(result){
         window.nandan = JSON.parse(result);
@@ -186,7 +186,7 @@ function submitform() {
                 body: formdata,
                 redirect: 'manual'
             };
-            fetch("https://7e39-27-4-43-91.in.ngrok.io/admin_upload", requestOptions)
+            fetch("https://dgy9ffjm0xcw9.cloudfront.net/admin_upload", requestOptions)
             .then(response => response.text())
             .then(
                 function(result){
@@ -209,7 +209,7 @@ function submitform() {
                             redirect: 'manual'
                     };
 
-                    fetch("https://7e39-27-4-43-91.in.ngrok.io/create_metadata", requestOptions)
+                    fetch("https://dgy9ffjm0xcw9.cloudfront.net/create_metadata", requestOptions)
                     .then(response => response.text())
                     .then(function(result){
                         var folderRow = document.getElementById('warning');
