@@ -135,7 +135,8 @@
         function filename_check(name) {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-            myHeaders.append('Access-Control-Allow-Origin','*');
+            myHeaders.append('Access-Control-Allow-Origin','*');            
+            myHeaders.append("Access-Control-Allow-Methods", "*");
 
             var raw = JSON.stringify({
                 "file_name": name
