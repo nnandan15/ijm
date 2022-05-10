@@ -134,31 +134,8 @@
             };
         };
 
-        function filename_check(name) {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            myHeaders.append('Access-Control-Allow-Origin','no-cors');
-            myHeaders.append("Access-Control-Allow-Methods", "*");
-
-            var raw = JSON.stringify({
-                "file_name": name
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                //headers: myHeaders,
-                body: raw,
-                redirect: 'manual'
-            };
-
-            fetch("http://ijm-file-engine.us-east-1.elasticbeanstalk.com/file_name_check", requestOptions)
-            .then(response => response.text())
-            .then(
-                function(result){
-                    var nandan = JSON.parse(result);
-                    return(nandan.message);
-                })
-            .catch(error => console.log('error', error));
+        async function filename_check(name) {
+            
         }
 
         $(document).ready(function() {
@@ -173,56 +150,82 @@
                 var filename = myInput.files[0].name;
                 var extension = filename.split('.').pop();
                 newFilename = String(newFilename+'.'+extension);
-                var status = filename_check(newFilename);
-                if (status=='yes') {
-                    //console.log('yes');
-                    var folderRow = document.getElementById('warning');
-                    folderRow.innerHTML='';
-                    folderRow.insertAdjacentHTML('beforeend', '<div class="alert alert-success" role="alert">File Uploaded Successfully</div>');
-                }else{
-                    //console.log('no');
-                    var formdata = new FormData();
-            formdata.append("fileobject", myInput.files[0], newFilename);
+                
+                var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append('Access-Control-Allow-Origin','no-cors');
+            myHeaders.append("Access-Control-Allow-Methods", "*");
+
+            var raw = JSON.stringify({
+                "file_name": newFilename
+            });
+
             var requestOptions = {
                 method: 'POST',
-                body: formdata,
+                //headers: myHeaders,
+                body: raw,
                 redirect: 'manual'
             };
-            fetch("http://ijm-file-engine.us-east-1.elasticbeanstalk.com/admin_upload", requestOptions)
+
+            fetch("http://ijm-file-engine.us-east-1.elasticbeanstalk.com/file_name_check", requestOptions)
             .then(response => response.text())
             .then(
                 function(result){
-                result = JSON.parse(result);
-                if (result["status"]==200) {
-                    var myHeaders = new Headers();
-                    myHeaders.append("Content-Type", "application/json");
-                    var raw = JSON.stringify({
-                        "file_name": newFilename,
-                        "isvisible": public_visibility,
-                        "category": category,
-                        "sub_category": sub_category,
-                        "tags": tags
-                    });
-
+                    var nandan = JSON.parse(result);
+                    console.log(nandan.message);
+                    status = nandan.message;
+                    //return(nandan.message);
+                    if (status==='no') {
+                    console.log('no');
+                    var folderRow = document.getElementById('warning');
+                    folderRow.innerHTML='';
+                    folderRow.insertAdjacentHTML('beforeend', '<div class="alert alert-danger" role="alert">File Name already exists</div>');
+                }else{
+                    var formdata = new FormData();
+                    formdata.append("fileobject", myInput.files[0], newFilename);
                     var requestOptions = {
-                            method: 'POST',
-                            headers: myHeaders,
-                            body: raw,
-                            redirect: 'manual'
+                        method: 'POST',
+                        body: formdata,
+                        redirect: 'manual'
                     };
-
-                    fetch("http://ijm-file-engine.us-east-1.elasticbeanstalk.com/create_metadata", requestOptions)
+                    fetch("http://ijm-file-engine.us-east-1.elasticbeanstalk.com/admin_upload", requestOptions)
                     .then(response => response.text())
-                    .then(function(result){
-                        var folderRow = document.getElementById('warning');
-                        folderRow.innerHTML='';
-                        folderRow.insertAdjacentHTML('beforeend', '<div class="alert alert-success" role="alert">File Uploaded Successfully</div>');
+                    .then(
+                        function(result){
+                        result = JSON.parse(result);
+                        if (result["status"]==200) {
+                            var myHeaders = new Headers();
+                            myHeaders.append("Content-Type", "application/json");
+                            var raw = JSON.stringify({
+                                "file_name": newFilename,
+                                "isvisible": public_visibility,
+                                "category": category,
+                                "sub_category": sub_category,
+                                "tags": tags
+                            });
+
+                            var requestOptions = {
+                                    method: 'POST',
+                                    headers: myHeaders,
+                                    body: raw,
+                                    redirect: 'manual'
+                            };
+
+                            fetch("http://ijm-file-engine.us-east-1.elasticbeanstalk.com/create_metadata", requestOptions)
+                            .then(response => response.text())
+                            .then(function(result){
+                                var folderRow = document.getElementById('warning');
+                                folderRow.innerHTML='';
+                                folderRow.insertAdjacentHTML('beforeend', '<div class="alert alert-success" role="alert">File Uploaded Successfully</div>');
+                            })
+                            .catch(error => console.log('error', error));
+                        }
                     })
                     .catch(error => console.log('error', error));
                 }
-            })
+                })
             .catch(error => console.log('error', error));
-                }
+                
             })
         });
     </script>
